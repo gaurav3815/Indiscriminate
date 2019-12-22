@@ -1,0 +1,49 @@
+import random
+WordBank = ["apple", "atom", "banana", "bat", "cat"]
+LettersGuessed = []
+WordChoice = random.choice(WordBank)
+print("Lets Begin, the word has been Set!")
+print("There are ", len(WordChoice), "letters in the word!")
+UsersGuess = str(input("Enter a Word or a Letter :"))
+lives = 3
+while lives > 0:
+    if len(UsersGuess) >= 2 and len(UsersGuess) < len(WordChoice):
+        lives = lives - 1
+        print("Incorrect Word you have", lives, "lives left!")
+        UsersGuess = str(input("Enter a Word or a Letter :"))
+    elif len(WordChoice) == len(UsersGuess):
+        if WordChoice == UsersGuess:
+            print("You Guessed it Correct!")
+            exit()
+        else:
+            lives = lives - 1
+            print("Incorrect Word you have", lives, "lives left!")
+            UsersGuess = str(input("Enter a Word or a Letter :"))
+    elif UsersGuess == WordChoice:
+        print("You Guessed it Correct!")
+        exit()
+    elif UsersGuess in WordChoice:
+        if UsersGuess not in LettersGuessed:
+            LettersGuessed.append(UsersGuess)
+            print("This letter is in the list", list(dict.fromkeys(LettersGuessed)))
+            if len(LettersGuessed) == len(WordChoice):
+                print("You have now guessed all", len(WordChoice),"letters correctly in the list!")
+                finalGuess = str(input("Whats your last guess : "))
+                if finalGuess == WordChoice:
+                    print("You nailed it!")
+                else:
+                    print("Wow the word was in front of you! GAME OVER!")
+                    exit()
+            else:
+                UsersGuess = str(input("Enter a Word or a Letter :"))
+
+        else:
+            print("The letter is Already in the list!")
+            UsersGuess = str(input("Enter a Word or a Letter :"))
+    else:
+        lives = lives - 1
+        print("Incorrect Letter!, Now you have just", lives, "left!")
+        UsersGuess = str(input("Enter a Word or a Letter :"))
+else:
+    print("Game over! correct word was", WordChoice)
+    exit()
