@@ -1,0 +1,264 @@
+import random
+import sys
+import time
+def RoolingDice():
+    global UsersBalance
+    global UsersBalance
+    global UserPicks
+    global BetAmount
+    global BalanceRemaining
+    global SpadesBet
+    global HeartBet
+    global DiamondBet
+    global ClubBet
+    global CrownBet
+    global FlagBet
+    spades = 0
+    hearts = 0
+    diamonds = 0
+    clubs = 0
+    crown = 0
+    flag = 0
+    print("Dices are Being Rolled...")
+    time.sleep(2)
+    for sides in range(0, 6):
+        result = random.choice(SidesName)
+        if result in SidesName:
+            if result == SidesName[0]:
+                spades = spades + 1
+            elif result == SidesName[1]:
+                hearts = hearts + 1
+            elif result == SidesName[2]:
+                diamonds = diamonds + 1
+            elif result == SidesName[3]:
+                clubs = clubs + 1
+            elif result == SidesName[4]:
+                crown = crown + 1
+            else:
+                flag = flag + 1
+    print("========================")
+    if spades >= 1:
+        print("Spades = ", spades)
+    if hearts >= 1:
+        print("Hearts = ", hearts)
+    if diamonds >= 1:
+        print("Diamonds = ", diamonds)
+    if clubs >= 1:
+        print("Clubs = ", clubs)
+    if crown >= 1:
+        print("Crowns =", crown)
+    if flag >= 1:
+        print("Flag =", flag)
+    print("========================")
+    if spades >= 1:
+        if "spade" in UserPicks:
+            if spades >= 2:
+                win = BetAmount * spades
+                print("You win on Spades: £",win)
+                UsersBalance = UsersBalance + win
+            else:
+                print("You Lose on Spades")
+        else:
+            pass
+    if "spade" in UserPicks:
+        if spades == 0:
+            print("You Lose on Spades")
+        else:
+            pass
+    else:
+        pass
+    if hearts >= 1:
+        if "heart" in UserPicks:
+            if hearts >= 2:
+                win = BetAmount * hearts
+                print("You win on Hearts: £",win)
+                UsersBalance = UsersBalance + win
+            else:
+                print("You Lose on hearts")
+        else:
+            pass
+    if "heart" in UserPicks:
+        if hearts == 0:
+            print("You Lose on hearts")
+        else:
+            pass
+    else:
+        pass
+    if diamonds >= 1:
+        if "diamond" in UserPicks:
+            if diamonds >= 2:
+                win = BetAmount * diamonds
+                print("You win on Diamonds: £",win)
+                UsersBalance = UsersBalance + win
+            else:
+                print("You Lose on diamonds")
+        else:
+            pass
+    if "diamond" in UserPicks:
+        if diamonds == 0:
+            print("You Lose on diamonds")
+        else:
+            pass
+    else:
+        pass
+    if clubs >= 1:
+        if "club" in UserPicks:
+            if clubs >= 2:
+                win = BetAmount * clubs
+                print("You win on Clubs: £",win)
+                UsersBalance = UsersBalance + win
+            else:
+                print("You Lose on clubs")
+        else:
+            pass
+    if "club" in UserPicks:
+        if clubs == 0:
+            print("You Lose on clubs")
+        else:
+            pass
+    else:
+        pass
+    if crown >= 1:
+        if "crown" in UserPicks:
+            if crown >= 2:
+                win = BetAmount * crown
+                print("You win on Crowns: £",win)
+                UsersBalance = UsersBalance + win
+            else:
+                print("You Lose on crown")
+        else:
+            pass
+    if "crown" in UserPicks:
+        if crown == 0:
+            print("You Lose on crown")
+        else:
+            pass
+    else:
+        pass
+    if flag >= 1:
+        if "flag" in UserPicks:
+            if flag >= 2:
+                win = BetAmount * flag
+                print("You win on Flags: £",win)
+                UsersBalance = UsersBalance + win
+            else:
+                print("You Lose on flag")
+        else:
+            pass
+    if "flag" in UserPicks:
+        if flag == 0:
+            print("You Lose on flag")
+        else:
+            pass
+    else:
+        pass
+    if UsersBalance == 0:
+        print("You lost all your Money!")
+        sys.exit()
+    else:
+        UserPicks.clear()
+        SpadesBet = 0
+        HeartBet = 0
+        DiamondBet = 0
+        ClubBet = 0
+        CrownBet = 0
+        FlagBet = 0
+        return pickingdices()
+def pickingdices():
+    global UsersBalance
+    global UserPicks
+    global BetAmount
+    global BalanceRemaining
+    global SpadesBet
+    global HeartBet
+    global DiamondBet
+    global ClubBet
+    global CrownBet
+    global FlagBet
+    while UsersBalance >= 0:
+        print("Your Balance : £", UsersBalance)
+        UsersChoice = str(input("What is your Choice | Choose from Spades, Hearts, Diamond, Clubs, Crown and Flag : "))
+        while UsersChoice not in SidesName:
+            print("Error | Enter your Choice with keywords given and no spelling mistakes")
+            UsersChoice = str(input("What is your Choice | Choose from Spades, Hearts, Diamond, Clubs, Crown and Flag : "))
+        else:
+            while UsersChoice in UserPicks:
+                if len(UserPicks) == 1:
+                    print("You have already chose", UserPicks,"once! Pick Different")
+                    UsersChoice = str(input("What is your Choice | Choose from Spades, Hearts, Diamond, Clubs, Crown and Flag : "))
+                else:
+                    print("You have already chose these options : ", UserPicks, "once! Pick Different")
+                    UsersChoice = str(input("What is your Choice | Choose from Spades, Hearts, Diamond, Clubs, Crown and Flag : "))
+            else:
+                UserPicks.append(UsersChoice)
+                print(UserPicks)
+                BetAmount = float(input("Enter the money amount you want to Bet : £"))
+                while BetAmount > UsersBalance:
+                    print("You don't have that amount of money!")
+                    BetAmount = float(input("Enter the money amount you want to Bet : £"))
+                else:
+                    if UsersChoice == "spade":
+                        SpadesBet = BetAmount + SpadesBet
+                        UsersBalance = UsersBalance - SpadesBet
+                    if UsersChoice == "heart":
+                        HeartBet = BetAmount + HeartBet
+                        UsersBalance = UsersBalance - HeartBet
+                    if UsersChoice == "diamond":
+                        DiamondBet = BetAmount + DiamondBet
+                        UsersBalance = UsersBalance - DiamondBet
+                    if UsersChoice == "club":
+                        ClubBet = BetAmount + ClubBet
+                        UsersBalance = UsersBalance - ClubBet
+                    if UsersChoice == "crown":
+                        CrownBet = BetAmount + CrownBet
+                        UsersBalance = UsersBalance - CrownBet
+                    if UsersChoice == "flag":
+                        FlagBet = BetAmount + FlagBet
+                        UsersBalance = UsersBalance - FlagBet
+                    if UsersBalance == 0:
+                        print("You don't have enough money to bet on anymore sides!")
+                        print("Your balance is : £", UsersBalance)
+                        return RoolingDice()
+                    else:
+                        if len(UserPicks) == 6:
+                            print("You have now picked all of the 6 possible sides!")
+                            return RoolingDice()
+                        else:
+                            UsersQuestionofchoice = str(input("Do you want to pick again : "))
+                            while UsersQuestionofchoice not in AllResponses:
+                                print("Please respond with Yes or No!")
+                                UsersQuestionofchoice = str(input("Do you want to pick again : "))
+                            else:
+                                while UsersQuestionofchoice in AllResponses[0:9]:
+                                    return pickingdices()
+                                else:
+                                    return RoolingDice()
+    else:
+        print("You are broke!")
+        sys.exit()
+
+def main():
+    global SidesName
+    global AllResponses
+    global UsersBalance
+    global UserPicks
+    global BetAmount
+    global SpadesBet
+    global HeartBet
+    global DiamondBet
+    global ClubBet
+    global CrownBet
+    global FlagBet
+    UsersBalance = float(50)
+    SpadesBet = float(0)
+    HeartBet = float(0)
+    DiamondBet = float(0)
+    ClubBet = float(0)
+    CrownBet = float(0)
+    FlagBet = float(0)
+    UserPicks = []
+    SidesName = ["spade", "heart", "diamond", "club", "crown", "flag"]
+    AllResponses = ["yes", "yep", "YES", "yeah", "Yep", "Ya", "yh", "YH", "Yh", "no", "nope", "NO", "No", "NOPE", "na", "na bro", "na man"]
+    print("Welcome to a Neplease Game of Lungar Burja")
+    return pickingdices()
+main()
