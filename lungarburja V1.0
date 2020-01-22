@@ -51,7 +51,7 @@ def RoolingDice():
         print("Flag =", flag)
     print("========================")
     if spades >= 1:
-        if "spade" in UserPicks:
+        if "spade"  in UserPicks:
             if spades >= 2:
                 win = BetAmount * spades
                 print("You win on Spades: £",win)
@@ -74,12 +74,12 @@ def RoolingDice():
                 print("You win on Hearts: £",win)
                 UsersBalance = UsersBalance + win
             else:
-                print("You Lose on hearts")
+                print("You Lose on Hearts")
         else:
             pass
     if "heart" in UserPicks:
         if hearts == 0:
-            print("You Lose on hearts")
+            print("You Lose on Hearts")
         else:
             pass
     else:
@@ -91,12 +91,12 @@ def RoolingDice():
                 print("You win on Diamonds: £",win)
                 UsersBalance = UsersBalance + win
             else:
-                print("You Lose on diamonds")
+                print("You Lose on Diamonds")
         else:
             pass
     if "diamond" in UserPicks:
         if diamonds == 0:
-            print("You Lose on diamonds")
+            print("You Lose on Diamonds")
         else:
             pass
     else:
@@ -108,12 +108,12 @@ def RoolingDice():
                 print("You win on Clubs: £",win)
                 UsersBalance = UsersBalance + win
             else:
-                print("You Lose on clubs")
+                print("You Lose on Clubs")
         else:
             pass
     if "club" in UserPicks:
         if clubs == 0:
-            print("You Lose on clubs")
+            print("You Lose on Clubs")
         else:
             pass
     else:
@@ -125,12 +125,12 @@ def RoolingDice():
                 print("You win on Crowns: £",win)
                 UsersBalance = UsersBalance + win
             else:
-                print("You Lose on crown")
+                print("You Lose on Crown")
         else:
             pass
     if "crown" in UserPicks:
         if crown == 0:
-            print("You Lose on crown")
+            print("You Lose on Crown")
         else:
             pass
     else:
@@ -142,12 +142,12 @@ def RoolingDice():
                 print("You win on Flags: £",win)
                 UsersBalance = UsersBalance + win
             else:
-                print("You Lose on flag")
+                print("You Lose on Flag")
         else:
             pass
     if "flag" in UserPicks:
         if flag == 0:
-            print("You Lose on flag")
+            print("You Lose on Flag")
         else:
             pass
     else:
@@ -177,21 +177,24 @@ def pickingdices():
     global FlagBet
     while UsersBalance >= 0:
         print("Your Balance : £", UsersBalance)
-        UsersChoice = str(input("What is your Choice | Choose from Spades, Hearts, Diamond, Clubs, Crown and Flag : "))
+        UsersChoice = str(input("What is your Choice | Choose from Spade, Heart, Diamond, Club, Crown and Flag : "))
         while UsersChoice not in SidesName:
             print("Error | Enter your Choice with keywords given and no spelling mistakes")
-            UsersChoice = str(input("What is your Choice | Choose from Spades, Hearts, Diamond, Clubs, Crown and Flag : "))
+            UsersChoice = str(input("What is your Choice | Choose from Spade, Heart, Diamond, Club, Crown and Flag : "))
         else:
             while UsersChoice in UserPicks:
                 if len(UserPicks) == 1:
                     print("You have already chose", UserPicks,"once! Pick Different")
-                    UsersChoice = str(input("What is your Choice | Choose from Spades, Hearts, Diamond, Clubs, Crown and Flag : "))
+                    UsersChoice = str(input("What is your Choice | Choose from Spade, Heart, Diamond, Club, Crown and Flag : "))
                 else:
                     print("You have already chose these options : ", UserPicks, "once! Pick Different")
-                    UsersChoice = str(input("What is your Choice | Choose from Spades, Hearts, Diamond, Clubs, Crown and Flag : "))
+                    UsersChoice = str(input("What is your Choice | Choose from Spade, Heart, Diamond, Club, Crown and Flag : "))
             else:
                 UserPicks.append(UsersChoice)
-                print(UserPicks)
+                if len(UserPicks) == 1:
+                    print("You have Picked : ", UserPicks)
+                else:
+                    print("You have Picked these :", UserPicks)
                 BetAmount = float(input("Enter the money amount you want to Bet : £"))
                 while BetAmount > UsersBalance:
                     print("You don't have that amount of money!")
@@ -224,10 +227,10 @@ def pickingdices():
                             print("You have now picked all of the 6 possible sides!")
                             return RoolingDice()
                         else:
-                            UsersQuestionofchoice = str(input("Do you want to pick again : "))
+                            UsersQuestionofchoice = str(input("Do you want to pick more dices : "))
                             while UsersQuestionofchoice not in AllResponses:
                                 print("Please respond with Yes or No!")
-                                UsersQuestionofchoice = str(input("Do you want to pick again : "))
+                                UsersQuestionofchoice = str(input("Do you want to pick more dices : "))
                             else:
                                 while UsersQuestionofchoice in AllResponses[0:9]:
                                     return pickingdices()
