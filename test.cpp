@@ -1,63 +1,71 @@
 #include <list>
 #include <algorithm>
 #include <iostream>
-class point {
+//Most of the Code here was Taken from an External source, But a lot of changes were made to the Algorithm
+class coordinates {
 public:
-    point( int a = 0, int b = 0 ) { x = a; y = b; }
-    bool operator ==( const point& o ) { return o.x == x && o.y == y; }
-    point operator +( const point& o ) { return point( o.x + x, o.y + y ); }
-    int x, y;
+    int Position_x, Position_y;
+    coordinates( int x = 0, int y = 0 ){
+        Position_x = x; Position_y = y;
+    }
+    bool operator ==( const coordinates & o ){
+        return o.Position_x == Position_x && o.Position_y == Position_y; }
+    coordinates operator +( const coordinates& o ) {
+        return coordinates( o.Position_x + Position_x, o.Position_y + Position_y ); }
+
 };
 
 class map {
 public:
     map() {
-        char t[10][10] = {
-            {0, 0, 0, 0, 0, 0, 0, 0, 0 ,0}, {1, 1, 1, 1, 1, 1, 1, 0 ,0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 1, 1, 1, 1, 1, 1, 1},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        char MapSize[40][40] = {
+            {0, 0, 0, 0, 0, 0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0 ,0 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0 ,0 ,0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1 ,1 , 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1 , 1, 1, 1, 1, 1, 1, 1, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1 ,1 , 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0 ,0 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0 ,0 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0 ,0 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
         };
-        w = h = 10;
-        for( int r = 0; r < h; r++ )
-            for( int s = 0; s < w; s++ )
-                m[s][r] = t[r][s];
+        width = height = 40;
+        for( int r = 0; r < height; r++ )
+            for( int s = 0; s < width; s++ )
+                m[s][r] = MapSize[r][s];
     }
-    int operator() ( int x, int y ) { return m[x][y]; }
-    char m[10][10];
-    int w, h;
+    int operator() ( int Position_x, int Position_y ) { return m[Position_x][Position_y]; }
+    char m[40][40];
+    int width, height;
 };
 
 class node {
 public:
     bool operator == (const node& o ) { return pos == o.pos; }
-    bool operator == (const point& o ) { return pos == o; }
+    bool operator == (const coordinates& o ) { return pos == o; }
     bool operator < (const node& o ) { return dist + cost < o.dist + o.cost; }
-    point pos, parent;
+    coordinates pos, parent;
     int dist, cost;
 };
 
 class aStar {
 public:
     aStar() {
-        neighbours[0] = point( -1, -1 ); neighbours[1] = point(  1, -1 );
-        neighbours[2] = point( -1,  1 ); neighbours[3] = point(  1,  1 );
-        neighbours[4] = point(  0, -1 ); neighbours[5] = point( -1,  0 );
-        neighbours[6] = point(  0,  1 ); neighbours[7] = point(  1,  0 );
+        neighbours[0] = coordinates( -1, -1 ); neighbours[1] = coordinates(  1, -1 );
+        neighbours[2] = coordinates( -1,  1 ); neighbours[3] = coordinates(  1,  1 );
+        neighbours[4] = coordinates(  0, -1 ); neighbours[5] = coordinates( -1,  0 );
+        neighbours[6] = coordinates(  0,  1 ); neighbours[7] = coordinates(  1,  0 );
+
     }
 
-    int calcDist( point& p ){
+    int calcDist( coordinates& p ){
         // need a better heuristic
-        int x = end.x - p.x, y = end.y - p.y;
-        return( x * x + y * y );
+        int Position_x = end.Position_x - p.Position_x, Position_y = end.Position_y - p.Position_y;
+        return( Position_x * Position_x + Position_y * Position_y );
     }
 
-    bool isValid( point& p ) {
-        return ( p.x >-1 && p.y > -1 && p.x < m.w && p.y < m.h );
+    bool isValid( coordinates& p ) {
+        return ( p.Position_x >-1 && p.Position_y > -1 && p.Position_x < m.width && p.Position_y < m.height );
     }
 
-    bool existPoint( point& p, int cost ) {
+    bool existPoint( coordinates& p, int cost ) {
         std::list<node>::iterator i;
         i = std::find( closed.begin(), closed.end(), p );
         if( i != closed.end() ) {
@@ -74,15 +82,15 @@ public:
 
     bool fillOpen( node& n ) {
         int stepCost, nc, dist;
-        point neighbour;
+        coordinates neighbour;
 
-        for( int x = 0; x < 8; x++ ) {
+        for( int x = 0; x < 29; x++ ) {
             // one can make diagonals have different cost
             stepCost = x < 4 ? 1 : 1;
             neighbour = n.pos + neighbours[x];
             if( neighbour == end ) return true;
 
-            if( isValid( neighbour ) && m( neighbour.x, neighbour.y ) != 1 ) {
+            if( isValid( neighbour ) && m( neighbour.Position_x, neighbour.Position_y ) != 1 ) {
                 nc = stepCost + n.cost;
                 dist = calcDist( neighbour );
                 if( !existPoint( neighbour, nc + dist ) ) {
@@ -97,7 +105,7 @@ public:
         return false;
     }
 
-    bool search( point& s, point& e, map& mp ) {
+    bool search( coordinates& s, coordinates& e, map& mp ) {
         node n; end = e; start = s; m = mp;
         n.cost = 0; n.pos = s; n.parent = 0; n.dist = calcDist( s );
         open.push_back( n );
@@ -111,11 +119,11 @@ public:
         return false;
     }
 
-    int path( std::list<point>& path ) {
+    int path( std::list<coordinates>& path ) {
         path.push_front( end );
         int cost = 1 + closed.back().cost;
         path.push_front( closed.back().pos );
-        point parent = closed.back().parent;
+        coordinates parent = closed.back().parent;
 
         for( std::list<node>::reverse_iterator i = closed.rbegin(); i != closed.rend(); i++ ) {
             if( ( *i ).pos == parent && !( ( *i ).pos == start ) ) {
@@ -127,26 +135,26 @@ public:
         return cost;
     }
 
-    map m; point end, start;
-    point neighbours[8];
+    map m; coordinates end, start;
+    coordinates neighbours[29];
     std::list<node> open;
     std::list<node> closed;
 };
 
 int main( int argc, char* argv[] ) {
     map m;
-    point s, e( 1, 7 );
+    coordinates s, e( 39, 40 );
     aStar as;
 
     if( as.search( s, e, m ) ) {
-        std::list<point> path;
+        std::list<coordinates> path;
         int c = as.path( path );
-        for( int y = -1; y < 9; y++ ) {
-            for( int x = -1; x < 9; x++ ) {
-                if( x < 0 || y < 0 || x > 7 || y > 7 || m( x, y ) == 1 )
+        for( int y = -1; y < 40; y++ ) {
+            for( int x = -1; x < 40; x++ ) {
+                if( x < 0 || y < 0 || x > 38 || y > 38 || m( x, y ) == 1 )
                     std::cout << char(0xdb);
                 else {
-                    if( std::find( path.begin(), path.end(), point( x, y ) )!= path.end() )
+                    if( std::find( path.begin(), path.end(), coordinates( x, y ) )!= path.end() )
                         std::cout << "x";
                     else std::cout << ".";
                 }
